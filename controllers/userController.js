@@ -48,8 +48,13 @@ class UserController {
             role: user.role,
         };
 
-        const options = { expiresIn: '55s' };
+        const options = { expiresIn: '1h' };
         const token = jwt.sign(payload, secretKey, options);
+
+        res.cookie('accessToken', token, {
+            maxAge: 3600000, // Waktu kedaluwarsa dalam milidetik (1 jam dalam contoh ini)
+            httpOnly: true, // Token hanya dapat diakses melalui HTTP dan tidak dari JavaScript
+        });
 
         const loginResult = {
             userId: user._id,
@@ -63,6 +68,21 @@ class UserController {
             loginResult: loginResult,
         });
     }
+    static async logoutUser(req, res, next) {
+        // Logout hanya dapat dilakukan oleh pengguna yang sudah terotentikasi
+        if(!req.cookies.accessToken) {
+            return res.status(401).json({ error: 'Authentication required' });
+        }
+
+        // Hapus cookie 'accessToken' dengan mengatur waktu kedaluwarsa ke masa lalu
+        res.clearCookie('accessToken');
+
+        res.status(200).json({
+            error: false,
+            message: 'Logout successful',
+        });
+    }
+    
 }
 module.exports = UserController;
 

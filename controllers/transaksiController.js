@@ -41,6 +41,24 @@ class TransaksiController{
         }
     }
 
+    static async deleteTransaksi(req, res, next) {
+        try{
+            const { id } = req.params;
+            const transaksi = await Transaksi.findByIdAndDelete(id);
+            if(!transaksi){
+                return next(new Error('Transaksi tidak ditemukan'));
+            }
+            res.status(200).json({
+                error: false,
+                message: 'success',
+                data: transaksi
+            });
+        }
+        catch(err){
+            next(err);
+        }
+    }
+
     static async get30MinutesTransaksi(req, res, next) {
         // try {
         //     const startOfDay = moment().startOf('day');

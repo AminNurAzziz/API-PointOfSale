@@ -16,7 +16,6 @@ function checkUserRole(role) {
         try {
             // Use the secret key from your environment variables
             const secretKey = process.env.SECRET_KEY;
-            console.log(secretKey);
             if (!secretKey) {
                 return res.status(500).json({ error: 'Kunci rahasia tidak ditemukan' });
             }

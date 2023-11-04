@@ -1,13 +1,19 @@
 const Produk = require('../models/produkSchema');
 
 class ProdukController{
+    // static async getAllProduk(req, res, next) {
+    //     const produk = await Produk.find({});
+    //     res.status(200).json({
+    //         error: false,
+    //         message: 'success',
+    //         data: produk
+    //     });
+    // }
     static async getAllProduk(req, res, next) {
         const produk = await Produk.find({});
-        res.status(200).json({
-            error: false,
-            message: 'success',
-            data: produk
-        });
+        if(status(200)){
+            res.render('../produk.ejs', { title: 'Produk', produk });
+        }
     }
 
     static async addProduk(req, res, next) {
