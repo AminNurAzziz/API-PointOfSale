@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const Produk = require('../controllers/produkController');
+const { checkAdmin, checkKasir } = require('../middlewareJWT')
+
 
 router.route('/produk')
-    .get(Produk.getAllProduk)
+    .get(checkAdmin, Produk.getAllProduk)
+
 
 router.route('/tambahProduk')
     .post(Produk.addProduk)

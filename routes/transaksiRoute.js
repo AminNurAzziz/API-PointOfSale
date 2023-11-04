@@ -8,4 +8,7 @@ router.route('/transaksi')
 router.route('/addTransaksi')
     .post(Transaksi.addTransaksi)
 
+router.route('/transaksi/30MinutesTransaksi')
+    .get(Transaksi.get30MinutesTransaksi)
+
 module.exports = router;
