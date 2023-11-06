@@ -36,10 +36,12 @@ app.use(cookieParser());
 const produkRoute = require('./routes/produkRoute');
 const TransaksiRoute = require('./routes/transaksiRoute');
 const userRoute = require('./routes/userRoute');
+const pendapatanRoute = require('./routes/pendapatanRoute');
 
 app.use('/', produkRoute);
 app.use('/', TransaksiRoute);
 app.use('/', userRoute);
+app.use('/', pendapatanRoute);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

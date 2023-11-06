@@ -1,5 +1,7 @@
 const { json } = require('express');
 const Transaksi = require('../models/transaksiSchema');
+const Produk = require('../models/produkSchema');
+const PendapatanController = require('./pendapatanController');
 const moment = require('moment'); // Import library moment untuk memformat tanggal
 
 class TransaksiController{
@@ -28,23 +30,51 @@ class TransaksiController{
     }
 
     static async addTransaksi(req, res, next) {
-        try{
-            const transaksi = new Transaksi(req.body);
+        try {
+            const transaksiData = req.body;
+            const transaksi = new Transaksi(transaksiData);
+            transaksi.totalHarga = 0;
+            const listProduk = [];
+
+            // Kurangi stok produk
+            for(let i = 0; i < transaksiData.idProduk.length; i++){
+                const produk = await Produk.findById(transaksiData.idProduk[i]._id);
+                listProduk.push(produk);
+                if(!produk){
+                    return next(new Error('Produk tidak ditemukan'));
+                }
+                produk.stokProduk -= transaksiData.idProduk[i].jumlahProduk;
+                await produk.save();
+                transaksi.idProduk[i].subTotalProduk = produk.hargaProduk * transaksiData.idProduk[i].jumlahProduk;
+                transaksi.totalHarga += transaksi.idProduk[i].subTotalProduk;
+            }
+            PendapatanController.addPendapatan(transaksi, listProduk, res);
+
             await transaksi.save();
             res.status(201).json({
                 error: false,
                 message: 'success'
             });
-        }
-        catch(err){
+        } catch (err) {
             next(err);
         }
     }
+    
+    
 
     static async deleteTransaksi(req, res, next) {
         try{
             const { id } = req.params;
             const transaksi = await Transaksi.findByIdAndDelete(id);
+            const listProduk = [];
+            for(let i = 0; i < transaksi.idProduk.length; i++){
+                const produk = await Produk.findById(transaksi.idProduk[i]._id);
+                listProduk.push(produk);
+                if(!produk){
+                    return next(new Error('Produk tidak ditemukan'));
+                }
+            }
+            PendapatanController.decreasePendapatan(transaksi, listProduk);
             if(!transaksi){
                 return next(new Error('Transaksi tidak ditemukan'));
             }
@@ -60,51 +90,6 @@ class TransaksiController{
     }
 
     static async get30MinutesTransaksi(req, res, next) {
-        // try {
-        //     const startOfDay = moment().startOf('day');
-        //     const endOfDay = moment().endOf('day');
-            
-        //     // Fetch transactions only for the current day
-        //     const transaksiToday = await Transaksi.find({
-        //         tanggalTransaksi: {
-        //             $gte: startOfDay.toDate(),
-        //             $lte: endOfDay.toDate()
-        //         }
-        //     });
-            
-        //     // Group transactions by 30 minutes interval
-        //     const groupedByInterval = {};
-        //     transaksiToday.forEach(t => {
-        //         const interval = moment(t.tanggalTransaksi).startOf('hour').add(
-        //             Math.floor(moment(t.tanggalTransaksi).minutes() / 30) * 30, 'minutes'
-        //         ).format('HH:mm');
-        //         if (!groupedByInterval[interval]) {
-        //             groupedByInterval[interval] = {
-        //                 totalHarga: 0,
-        //                 totalTransaksi: 0
-        //             };
-        //         }
-        //         groupedByInterval[interval].totalHarga += t.totalHarga;
-        //         groupedByInterval[interval].totalTransaksi += 1;
-        //     });
-            
-        //     const result = [];
-        //     for (const [interval, data] of Object.entries(groupedByInterval)) {
-        //         result.push({
-        //             interval,
-        //             totalHarga: data.totalHarga,
-        //             totalTransaksi: data.totalTransaksi
-        //         });
-        //     }
-            
-        //     res.status(200).json({
-        //         error: false,
-        //         message: 'success',
-        //         data: result
-        //     });
-        // } catch (err) {
-        //     next(err);
-        // }
         try {
             // Ambil semua transaksi dari hari ini
             const startOfDay = moment().startOf('day');

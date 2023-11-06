@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const transaksiSchema = new Schema({
-    jumlahProduk: {
-        type: Number,
-        required: true
-    },
     totalHarga: {
         type: Number,
         required: true
@@ -13,6 +9,7 @@ const transaksiSchema = new Schema({
     tanggalTransaksi: {
         type: Date,
         required: true,
+        FormData: Date,
         default: Date.now
     },
     idProduk: [{
