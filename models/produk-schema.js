@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Admin = require('./userSchema');
+const Admin = require('./user-schema');
 
 const produkSchema = new Schema({
     namaProduk: {

@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 
 const port = 3000;
-const url = `mongodb://127.0.0.1:27017/POS-System`;
+const url = process.env.DB_CONNECTION;
 mongoose.connect(url, {
     serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
 })
@@ -30,10 +30,10 @@ app.use(methodOverride('_method'));
 app.use(cookieParser());
 
 // Routes
-const produkRoute = require('./routes/produkRoute');
-const TransaksiRoute = require('./routes/transaksiRoute');
-const userRoute = require('./routes/userRoute');
-const pendapatanRoute = require('./routes/pendapatanRoute');
+const produkRoute = require('./routes/produk-route');
+const TransaksiRoute = require('./routes/transaksi-route');
+const userRoute = require('./routes/user-route');
+const pendapatanRoute = require('./routes/pendapatan-route');
 
 app.use('/', produkRoute);
 app.use('/', TransaksiRoute);

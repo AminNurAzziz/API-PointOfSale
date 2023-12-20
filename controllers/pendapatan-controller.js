@@ -1,5 +1,5 @@
-const { parse } = require('dotenv');
-const Pendapatan = require('../models/pendapatanSchema');
+
+const Pendapatan = require('../models/pendapatan-schema');
 
 class PendapatanController{
 

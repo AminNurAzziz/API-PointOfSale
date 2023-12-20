@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Produk = require('../controllers/produkController');
+const Produk = require('../controllers/produk-controller');
 const { checkAdmin, checkKasir } = require('../middlewareJWT')
 
 

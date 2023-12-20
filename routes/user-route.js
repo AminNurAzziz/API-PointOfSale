@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const User = require('../models/userSchema');
-const UserController = require('../controllers/userController');
+const User = require('../models/user-schema');
+const UserController = require('../controllers/user-controller');
 // Auth with JWT
 const bcrypt = require('bcrypt'); // Make sure to install bcrypt to handle password checking
 const jwt = require('jsonwebtoken');

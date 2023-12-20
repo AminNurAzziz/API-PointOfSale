@@ -1,7 +1,7 @@
 const { json } = require('express');
 const Transaksi = require('../models/transaksi-schema');
 const Produk = require('../models/produk-schema');
-const PendapatanController = require('./pendapatanController');
+const PendapatanController = require('./pendapatan-controller');
 const moment = require('moment'); // Import library moment untuk memformat tanggal
 
 class TransaksiController{

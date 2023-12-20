@@ -1,4 +1,4 @@
-const User = require('../models/userSchema');
+const User = require('../models/user-schema');
 const bcrypt = require('bcrypt'); // Make sure to install bcrypt to handle password checking
 const jwt = require('jsonwebtoken');
 

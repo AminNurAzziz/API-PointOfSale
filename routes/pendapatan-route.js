@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Pendapatan = require('../controllers/pendapatanController');
+const Pendapatan = require('../controllers/pendapatan-controller');
 const { checkAdmin } = require('../middlewareJWT')
 
 router.route('/pendapatan')
