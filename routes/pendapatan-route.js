@@ -6,6 +6,8 @@ const { checkAdmin } = require('../middlewareJWT')
 router.route('/pendapatan')
     .get(Pendapatan.getAllPendapatan)
 
+router.route('/tambahPendapatan')
+
 router.route('/deletePendapatan/:id')
     .delete(Pendapatan.deletePendapatan)
 

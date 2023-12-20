@@ -8,8 +8,6 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
 
-
-
 const app = express();
 
 const port = 3000;
@@ -30,7 +28,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
-
 
 // Routes
 const produkRoute = require('./routes/produkRoute');

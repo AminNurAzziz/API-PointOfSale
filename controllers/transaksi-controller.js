@@ -1,44 +1,62 @@
 const { json } = require('express');
-const Transaksi = require('../models/transaksiSchema');
-const Produk = require('../models/produkSchema');
+const Transaksi = require('../models/transaksi-schema');
+const Produk = require('../models/produk-schema');
 const PendapatanController = require('./pendapatanController');
 const moment = require('moment'); // Import library moment untuk memformat tanggal
 
 class TransaksiController{
     static async getAllTransaksi(req, res, next) {
-        Transaksi.find({})
-        .then((transaksi) => {
+        try {
+            const transaksi = await Transaksi.find({})
+                .populate({
+                    path: 'idProduk._id',
+                    model: 'Produk',
+                    select: 'namaProduk hargaProduk gambarProduk kategoriProduk',
+                })
+                .exec();
+    
             // Memformat tanggal dan waktu untuk setiap transaksi
             const formattedTransaksi = transaksi.map((t) => ({
                 jumlahProduk: t.jumlahProduk,
                 totalHarga: t.totalHarga,
                 tanggalTransaksi: moment(t.tanggalTransaksi).format('DD-MM-YYYY'),
-                waktu: moment(t.tanggalTransaksi).format('HH:mm:ss'), // Memformat jam:menit
-                idProduk: t.idProduk,
+                waktu: moment(t.tanggalTransaksi).format('HH:mm:ss'),
+                idProduk: t.idProduk.map((p) => ({
+                    _id: p._id._id.toString(), // Access the _id of the populated Produk
+                    namaProduk: p._id.namaProduk,
+                    hargaProduk: p._id.hargaProduk,
+                    gambarProduk: p._id.gambarProduk,  
+                    kategoriProduk: p._id.kategoriProduk,                  
+                    jumlahProduk: p.jumlahProduk,
+                    subTotalProduk: p.subTotalProduk,
+                })),
                 idKasir: t.idKasir,
                 idAdmin: t.idAdmin,
             }));
+    
             res.status(200).json({
                 error: false,
                 message: 'success',
-                data: formattedTransaksi
+                data: formattedTransaksi,
             });
-        })
-        .catch((err) => {
+        } catch (err) {
             next(err);
-        });
+        }
     }
+    
 
     static async addTransaksi(req, res, next) {
         try {
             const transaksiData = req.body;
             const transaksi = new Transaksi(transaksiData);
+            console.log(transaksiData);
             transaksi.totalHarga = 0;
             const listProduk = [];
 
             // Kurangi stok produk
             for(let i = 0; i < transaksiData.idProduk.length; i++){
                 const produk = await Produk.findById(transaksiData.idProduk[i]._id);
+                console.log('INI ADAH', transaksiData.idProduk[i]._id);
                 listProduk.push(produk);
                 if(!produk){
                     return next(new Error('Produk tidak ditemukan'));

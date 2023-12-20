@@ -5,7 +5,7 @@ const { checkAdmin, checkKasir } = require('../middlewareJWT')
 
 
 router.route('/produk')
-    .get(checkAdmin, Produk.getAllProduk)
+    .get(Produk.getAllProduk)
 
 
 router.route('/tambahProduk')

@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt'); // Make sure to install bcrypt to handle passw
 const jwt = require('jsonwebtoken');
 
 class UserController {
-
     static async registerUser(req, res) {
         try {
             const { email, username, nama, role, password } = req.body;

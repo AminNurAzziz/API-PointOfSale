@@ -1,4 +1,5 @@
-const Produk = require('../models/produkSchema');
+const Produk = require('../models/produk-schema');
+const Transaksi = require('../models/transaksi-schema');
 
 class ProdukController{
     static async getAllProduk(req, res, next) {
@@ -9,6 +10,7 @@ class ProdukController{
             data: produk
         });
     }
+    
     static async addProduk(req, res, next) {
         try {
             const produk = new Produk(req.body);
@@ -57,17 +59,34 @@ class ProdukController{
         }
     }
 
+
+    // TODO : will change be soft delete if already fiks
     static async deleteProduk(req, res, next) {
         const id = req.params.id;
-        const produk = await Produk.findByIdAndDelete(id);
-        if(!produk){
-            return next(new Error('Produk tidak ditemukan'));
+    
+        try {
+            // Find the product and delete it
+            const produk = await Produk.findByIdAndDelete(id);
+    
+            if (!produk) {
+                return next(new Error('Produk tidak ditemukan'));
+            }
+    
+            // Delete related documents in the transaksis collection
+            await Transaksi.updateMany(
+                { "idProduk._id": produk._id },
+                { $pull: { idProduk: { _id: produk._id } } }
+            );
+    
+            res.status(200).json({
+                error: false,
+                message: 'success'
+            });
+        } catch (err) {
+            next(err);
         }
-        res.status(200).json({
-            error: false,
-            message: 'success'
-        });
     }
+    
 }
 
 module.exports = ProdukController;
