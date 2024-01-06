@@ -1,16 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path');
 const methodOverride = require('method-override');
-const passport = require('passport');
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
-
 const app = express();
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const url = process.env.DB_CONNECTION;
 mongoose.connect(url, {
     serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
@@ -40,6 +35,7 @@ app.use('/', TransaksiRoute);
 app.use('/', userRoute);
 app.use('/', pendapatanRoute);
 
+// Listen Port
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

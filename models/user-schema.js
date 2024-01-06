@@ -10,11 +10,11 @@ const userSchema = new Schema({
     },
     username: {
         type: String,
-        required:true,
+        required: true,
         unique: true
     },
     nama: String,
-    role : {
+    role: {
         type: String,
         enum: ['Admin', 'Kasir']
     },
