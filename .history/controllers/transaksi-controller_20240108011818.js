@@ -162,27 +162,14 @@ class TransaksiController {
 
     static async getHourlyEarnings(req, res, next) {
         try {
-            const { startDate, endDate, startHour, endHour } = req.query;
+            // Extract query parameters for start and end dates
+            const { startDate, endDate } = req.query;
 
-            // Ambil jam awal dan akhir dari query params
-            const startTime = startHour ? parseInt(startHour) : 0;
-            const endTime = endHour ? parseInt(endHour) : 23;
+            // Set the start and end dates based on query parameters or default to today and tomorrow
+            const startOfDay = startDate ? moment(startDate).startOf('day') : moment().startOf('day');
+            const endOfDay = endDate ? moment(endDate).endOf('day') : moment().endOf('day').add(1, 'day');
 
-            // Ambil tanggal awal dan akhir dari query params
-            const startOfDay = startDate ? moment(startDate).startOf('day').hour(startTime) : moment().startOf('day').hour(startTime);
-            const endOfDay = endDate ? moment(endDate).endOf('day').hour(endTime) : moment().endOf('day').hour(endTime);
-
-            console.log(moment(startOfDay).format('YYYY-MM-DD HH:mm:ss'));
-            console.log(moment(endOfDay).format('YYYY-MM-DD HH:mm:ss'));
-
-            // Tambahkan jam awal dan akhir ke tanggal
-            const startDateWithTime = startOfDay.clone().hour(startTime);
-            const endDateWithTime = endOfDay.clone().hour(endTime);
-
-            console.log(startDateWithTime.format(), endDateWithTime.format());
-
-
-
+            // Fetch transactions within the specified date range
             const transaksiToday = await Transaksi.find({
                 tanggalTransaksi: {
                     $gte: startOfDay.toDate(),
@@ -190,48 +177,27 @@ class TransaksiController {
                 }
             });
 
-            // Inisialisasi struktur data untuk menyimpan pendapatan per jam
+            // Initialize data structure to store hourly earnings
             let hourlyEarnings = Array(24).fill(0);
 
-            // Proses setiap transaksi dan tambahkan ke pendapatan per jam yang sesuai
-            // Proses setiap transaksi dan tambahkan ke pendapatan per jam yang sesuai
+            // Process each transaction and add to the corresponding hourly earnings
             for (let trans of transaksiToday) {
                 const transTime = moment(trans.tanggalTransaksi);
                 const hourIndex = transTime.hour();
-
-                // Filter transaksi berdasarkan jam
-                if (
-                    (transTime.isSame(startDateWithTime) && hourIndex >= startTime) ||
-                    (transTime.isSame(endDateWithTime) && hourIndex <= endTime) ||
-                    (transTime.isAfter(startDateWithTime) && transTime.isBefore(endDateWithTime))
-                ) {
-                    hourlyEarnings[hourIndex] += trans.totalHarga;
-                }
+                hourlyEarnings[hourIndex] += trans.totalHarga;
             }
 
-
-            // Filter out hours with zero earnings and include tanggalTransaksi for each transaction
+            // Filter out hours with zero earnings
             const nonZeroHourlyEarnings = hourlyEarnings
-                .map((earnings, hour) => ({
-                    date: moment(transaksiToday.find(trans => moment(trans.tanggalTransaksi).hour() === hour)?.tanggalTransaksi).format('YYYY-MM-DD'),
-                    hour,
-                    earnings
-                }))
+                .map((earnings, hour) => ({ hour, earnings }))
                 .filter(item => item.earnings > 0);
 
-            console.log(nonZeroHourlyEarnings);
-            // Format data response with date, start hour, end hour, and earnings
+            // Format data response with date and hour
             const formattedData = nonZeroHourlyEarnings.map(item => ({
-                date: item.date,
-                startHour: `${String(item.hour).padStart(2, '0')}:00:00`,
-                endHour: `${String(item.hour + 1).padStart(2, '0')}:00:00`,
+                datetime: moment().format('YYYY-MM-DD') + ` ${String(item.hour).padStart(2, '0')}:00:00`,
                 earnings: item.earnings
             }));
-            // Sort the formattedData array in descending order based on date and hour
-            formattedData.sort((a, b) => {
-                const dateComparison = b.date.localeCompare(a.date);
-                return dateComparison !== 0 ? dateComparison : b.startHour.localeCompare(a.startHour);
-            });
+
             res.status(200).json({
                 error: false,
                 message: 'success',
@@ -241,6 +207,7 @@ class TransaksiController {
             next(err);
         }
     }
+
 
 
 }

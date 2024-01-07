@@ -14,7 +14,7 @@ router.route('/addTransaksi')
 router.route('/deleteTransaksi/:id')
     .delete(Transaksi.deleteTransaksi)
 
-router.route('/transaksi/hourlyEarnings')
+router.route('/transaksi/30MinutesTransaksi')
     .get(Transaksi.getHourlyEarnings)
 
 module.exports = router;

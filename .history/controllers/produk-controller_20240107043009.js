@@ -12,6 +12,44 @@ class ProdukController {
         });
     }
 
+    static async getProdukPopuler(req, res, next) {
+        try {
+            const result = await Transaksi.aggregate([
+                { $unwind: "$idProduk" },
+                {
+                    $group: {
+                        _id: "$idProduk._id",
+                        namaProduk: { $first: "$idProduk.namaProduk" },
+                        totalTerjual: { $sum: "$idProduk.jumlahProduk" },
+                    }
+                },
+                { $sort: { totalTerjual: -1 } }
+            ]);
+
+            const produkIds = result.map(prod => prod._id);
+
+            const produkDetails = await Produk.find({ _id: { $in: produkIds } });
+
+            const produkWithTotalTerjual = produkDetails.map(produk => {
+                const terjual = result.find(prod => prod._id.equals(produk._id));
+                return {
+                    ...produk._doc,
+                    totalTerjual: terjual ? terjual.totalTerjual : 0
+                };
+            });
+
+            res.status(200).json({
+                error: false,
+                message: 'success',
+                data: produkWithTotalTerjual
+            });
+        } catch (err) {
+            next(err);
+        }
+    }
+
+
+
     static async addProduk(req, res, next) {
         try {
             const produk = new Produk(req.body);

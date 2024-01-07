@@ -3,8 +3,8 @@ const Transaksi = require('../models/transaksi-schema');
 
 class ProdukController {
     static async getAllProduk(req, res, next) {
-        const params = req.query.kategori;
-        const produk = await Produk.find({ kategoriProduk: params });
+        const params = req.query;
+        const produk = await Produk.find({});
         res.status(200).json({
             error: false,
             message: 'success',

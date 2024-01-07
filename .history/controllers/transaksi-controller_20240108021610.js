@@ -175,13 +175,6 @@ class TransaksiController {
             console.log(moment(startOfDay).format('YYYY-MM-DD HH:mm:ss'));
             console.log(moment(endOfDay).format('YYYY-MM-DD HH:mm:ss'));
 
-            // Tambahkan jam awal dan akhir ke tanggal
-            const startDateWithTime = startOfDay.clone().hour(startTime);
-            const endDateWithTime = endOfDay.clone().hour(endTime);
-
-            console.log(startDateWithTime.format(), endDateWithTime.format());
-
-
 
             const transaksiToday = await Transaksi.find({
                 tanggalTransaksi: {
@@ -227,11 +220,7 @@ class TransaksiController {
                 endHour: `${String(item.hour + 1).padStart(2, '0')}:00:00`,
                 earnings: item.earnings
             }));
-            // Sort the formattedData array in descending order based on date and hour
-            formattedData.sort((a, b) => {
-                const dateComparison = b.date.localeCompare(a.date);
-                return dateComparison !== 0 ? dateComparison : b.startHour.localeCompare(a.startHour);
-            });
+
             res.status(200).json({
                 error: false,
                 message: 'success',

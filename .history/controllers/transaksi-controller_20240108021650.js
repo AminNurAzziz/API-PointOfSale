@@ -227,11 +227,7 @@ class TransaksiController {
                 endHour: `${String(item.hour + 1).padStart(2, '0')}:00:00`,
                 earnings: item.earnings
             }));
-            // Sort the formattedData array in descending order based on date and hour
-            formattedData.sort((a, b) => {
-                const dateComparison = b.date.localeCompare(a.date);
-                return dateComparison !== 0 ? dateComparison : b.startHour.localeCompare(a.startHour);
-            });
+
             res.status(200).json({
                 error: false,
                 message: 'success',

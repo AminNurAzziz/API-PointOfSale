@@ -12,6 +12,15 @@ class ProdukController {
         });
     }
 
+    static async populerProduk(req, res, next) {
+        const produk = await Produk.find({}).sort({ terjual: -1 }).limit(5);
+        res.status(200).json({
+            error: false,
+            message: 'success',
+            data: produk
+        });
+    }
+
     static async addProduk(req, res, next) {
         try {
             const produk = new Produk(req.body);

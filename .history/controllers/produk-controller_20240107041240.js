@@ -4,6 +4,7 @@ const Transaksi = require('../models/transaksi-schema');
 class ProdukController {
     static async getAllProduk(req, res, next) {
         const params = req.query.kategori;
+        console.log(params);
         const produk = await Produk.find({ kategoriProduk: params });
         res.status(200).json({
             error: false,
