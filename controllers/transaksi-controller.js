@@ -181,8 +181,6 @@ class TransaksiController {
 
             console.log(startDateWithTime.format(), endDateWithTime.format());
 
-
-
             const transaksiToday = await Transaksi.find({
                 tanggalTransaksi: {
                     $gte: startOfDay.toDate(),

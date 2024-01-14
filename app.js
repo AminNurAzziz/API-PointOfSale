@@ -40,8 +40,6 @@ app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 
-
-
 //TODO : WITHOUT JWT
 // const express = require('express');
 // const mongoose = require('mongoose');
