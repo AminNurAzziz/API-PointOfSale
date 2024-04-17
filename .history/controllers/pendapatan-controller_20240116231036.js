@@ -75,6 +75,7 @@ class PendapatanController {
             data: pendapatan
         });
     }
+
 }
 
 module.exports = PendapatanController;

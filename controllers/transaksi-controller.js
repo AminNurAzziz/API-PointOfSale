@@ -192,7 +192,6 @@ class TransaksiController {
             let hourlyEarnings = Array(24).fill(0);
 
             // Proses setiap transaksi dan tambahkan ke pendapatan per jam yang sesuai
-            // Proses setiap transaksi dan tambahkan ke pendapatan per jam yang sesuai
             for (let trans of transaksiToday) {
                 const transTime = moment(trans.tanggalTransaksi);
                 const hourIndex = transTime.hour();

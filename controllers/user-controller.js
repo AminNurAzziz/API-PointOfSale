@@ -29,6 +29,7 @@ class UserController {
     }
 
     static async loginUser(req, res, next) {
+        console.log(req.body);
         let user = await User.findOne({ 
             $or: [
                 { email: req.body.email },
