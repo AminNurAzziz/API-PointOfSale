@@ -11,6 +11,7 @@ class ProdukController {
 
         const produk = await Produk.find(query);
 
+        console.log('Data Berhasil DiAmbil');
         res.status(200).json({
             error: false,
             message: 'success',
@@ -85,7 +86,6 @@ class ProdukController {
                 { "idProduk._id": produk._id },
                 { $pull: { idProduk: { _id: produk._id } } }
             );
-
             res.status(200).json({
                 error: false,
                 message: 'success'

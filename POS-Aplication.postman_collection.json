@@ -1,0 +1,1167 @@
+{
+	"info": {
+		"_postman_id": "a61fe196-e42b-4527-9872-d80e1491f9e9",
+		"name": "POS-Aplication",
+		"description": "API ini memungkinkan aplikasi eksternal untuk berkomunikasi dengan POS-Aplication",
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "admin@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "nama",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "Admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.178.135:3000/register",
+						"description": "This endpoint allows you to register a new user. The request should be sent via an HTTP POST method to the specified URL.\n\n### Request Body\n\nThe request body should be of type x-www-form-urlencoded and include the following parameters:\n\n- `email` (text): The email address of the user.\n- `username` (text): The username chosen by the user.\n- `nama` (text): The name of the user.\n- `role` (text): The role of the user.\n- `password` (text): The password chosen by the user.\n    \n\n### Response\n\nUpon successful execution, the server will respond with a status code of 201. The response body will include:\n\n- `error`: Indicates if an error occurred during the registration process.\n- `message`: Additional information or error message."
+					},
+					"response": [
+						{
+							"name": "register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "adminn@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "adminn",
+											"type": "text"
+										},
+										{
+											"key": "nama",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "role",
+											"value": "Admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "adminn",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://192.168.178.135:3000/register"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "51"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"33-mrAXEs2nD93of/tD1rRCZL7f+Wo\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 07:45:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"message\": \"Registration successful\"\n}"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response Content-Type is 'text/xml'\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/xml\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    pm.expect(responseData).to.not.be.null.and.to.not.be.undefined;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body is in a valid XML format\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    \r",
+									"    pm.expect(responseData).to.not.be.null;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body is not null or undefined\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    \r",
+									"    pm.expect(responseData).to.not.be.null.and.to.not.be.undefined;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body is in a valid XML format\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.178.135:3000/login",
+						"description": "This endpoint is used to log in with the provided credentials. The request should be sent as an HTTP POST to the specified URL. The request body should be of type x-www-form-urlencoded and include the following parameters:\n\n- username (text): The username of the user.\n- password (text): The password of the user.\n    \n\nThe response to the request will have a status code of 200. The body of the response will include the following fields:\n\n- error (boolean): Indicates if an error occurred during the login process.\n- message (string): A message related to the login process.\n- loginResult (object): An object containing the following fields:\n    - userId (string): The ID of the logged-in user.\n    - name (string): The name of the logged-in user.\n    - token (string): The authentication token for the logged-in user."
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "admin",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://192.168.178.135:3000/login"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTRiYzdkNmU1MjZkNjYyMGU5MmM0ZGIiLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6IkFkbWluIiwiaWF0IjoxNzAzMDU4MjU4LCJleHAiOjE3MDMwNjE4NTh9.YCpkXJo2_v1CltaoHiNBH7ZXvn1aiKsjv3Ii2JQzyyM; Max-Age=3600; Path=/; Expires=Wed, 20 Dec 2023 08:44:18 GMT; HttpOnly"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "334"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"14e-XesJ9nz9wZlseoqBS9YLRJbZBHo\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 07:44:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"message\": \"success\",\n    \"loginResult\": {\n        \"userId\": \"654bc7d6e526d6620e92c4db\",\n        \"name\": \"admin\",\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTRiYzdkNmU1MjZkNjYyMGU5MmM0ZGIiLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6IkFkbWluIiwiaWF0IjoxNzAzMDU4MjU4LCJleHAiOjE3MDMwNjE4NTh9.YCpkXJo2_v1CltaoHiNBH7ZXvn1aiKsjv3Ii2JQzyyM\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://192.168.178.135:3000/logout",
+						"description": "This endpoint is used to log out the user from the system. It is an HTTP GET request that does not require any request body. Upon successful execution, the server returns a status code of 200. The response will include a JSON object with an \"error\" field indicating whether an error occurred, and a \"message\" field providing additional information about the operation."
+					},
+					"response": [
+						{
+							"name": "logout",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://192.168.178.135:3000/logout"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "accessToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "45"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2d-jk3bj/+L1NELXvdOgEpL9UesVXQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 07:46:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"message\": \"Logout successful\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Produk",
+			"item": [
+				{
+					"name": "addProduk",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "namaProduk",
+									"value": "Produk Dummy3",
+									"type": "text"
+								},
+								{
+									"key": "hargaProduk",
+									"value": "150000",
+									"type": "text"
+								},
+								{
+									"key": "stokProduk",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "kategoriProduk",
+									"value": "Makanan",
+									"type": "text"
+								},
+								{
+									"key": "gambarProduk",
+									"value": "http://contoh.com/gambar-produk.jpg",
+									"type": "text"
+								},
+								{
+									"key": "idAdmin",
+									"value": "654282c46f816855babac46b",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.178.135:3000/addProduk",
+						"description": "This API endpoint allows you to add a new product by making an HTTP POST request to the specified URL. The request should include the following parameters in the x-www-form-urlencoded format:\n\n- `namaProduk` (text): The name of the product.\n- `hargaProduk` (text): The price of the product.\n- `stokProduk` (text): The stock quantity of the product.\n- `kategoriProduk` (text): The category of the product.\n- `gambarProduk` (text): The image of the product.\n- `idAdmin` (text): The ID of the admin adding the product.\n    \n\nThe response to the request will have a status code of 201, and it will include a JSON object with the following structure:\n\n``` json\n{\n    \"error\": false,\n    \"message\": \"success\"\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "addProduk",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "namaProduk",
+											"value": "Produk Dummy3",
+											"type": "text"
+										},
+										{
+											"key": "hargaProduk",
+											"value": "150000",
+											"type": "text"
+										},
+										{
+											"key": "stokProduk",
+											"value": "50",
+											"type": "text"
+										},
+										{
+											"key": "kategoriProduk",
+											"value": "Makanan",
+											"type": "text"
+										},
+										{
+											"key": "gambarProduk",
+											"value": "http://contoh.com/gambar-produk.jpg",
+											"type": "text"
+										},
+										{
+											"key": "idAdmin",
+											"value": "654282c46f816855babac46b",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://192.168.178.135:3000/tambahProduk"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "35"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"23-XvoqAknSrzp1/yN+iB0y0fXcQYo\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 07:46:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"message\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "getProduk",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTRhODM5YzI2ZDE4NmNmYjY4ZjA4NmQiLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6IkFkbWluIiwiaWF0IjoxNjk5Mzg2MDE2LCJleHAiOjE2OTkzODk2MTZ9.oIUVlMybHiKsEoVTIJ3hXltRc2xtcA76tH-gPj45CoA"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://192.168.178.135:3000/produk?kategori=Makanan",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"178",
+								"135"
+							],
+							"port": "3000",
+							"path": [
+								"produk"
+							],
+							"query": [
+								{
+									"key": "kategori",
+									"value": "Makanan"
+								}
+							]
+						},
+						"description": "This API endpoint makes an HTTP GET request to retrieve a list of products from the server. The request is sent to [http://192.168.178.135:3000/produk](http://192.168.178.135:3000/produk) with an x-www-form-urlencoded request body type.\n\n### Request\n\nThe request does not include any specific parameters in the x-www-form-urlencoded request body.\n\n### Response\n\nUpon a successful execution (Status: 200), the server returns a JSON response with an array of product data. Each product object in the \"data\" array includes the following attributes:\n\n``` json\n{\n    \"error\": false,\n    \"message\": \"success\",\n    \"data\": [\n        {\n            \"_id\": \"655de9d13d70b4173c94c9cc\",\n            \"namaProduk\": \"21\",\n            \"hargaProduk\": 12,\n            \"stokProduk\": -8,\n            \"kategoriProduk\": \"Minuman\",\n            \"gambarProduk\": \"null11\",\n            \"idAdmin\": \"654bc7d6e526d6620e92c4db\",\n            \"__v\": 0\n        },\n    ]\n}\n\n ```\n\nIf there are any errors, the \"error\" attribute is set to true, and an accompanying \"message\" provides additional information."
+					},
+					"response": [
+						{
+							"name": "getProduk",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": "http://192.168.178.135:3000/produk"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1407"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"57f-mlk7eIVKB1nhb7LhE7bD59JahAA\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 07:47:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"message\": \"success\",\n    \"data\": [\n        {\n            \"_id\": \"655de9d13d70b4173c94c9cc\",\n            \"namaProduk\": \"21\",\n            \"hargaProduk\": 12,\n            \"stokProduk\": -8,\n            \"kategoriProduk\": \"Minuman\",\n            \"gambarProduk\": \"null11\",\n            \"idAdmin\": \"654bc7d6e526d6620e92c4db\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"655fb5127d2552dbc0d119ad\",\n            \"namaProduk\": \"akskjd\",\n            \"hargaProduk\": 46465,\n            \"stokProduk\": 6452,\n            \"kategoriProduk\": \"Makanan\",\n            \"gambarProduk\": \"null11\",\n            \"idAdmin\": \"654bc7d6e526d6620e92c4db\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"655fb5137d2552dbc0d119b0\",\n            \"namaProduk\": \"akskjd\",\n            \"hargaProduk\": 46465,\n            \"stokProduk\": 6460,\n            \"kategoriProduk\": \"Makanan\",\n            \"gambarProduk\": \"null11\",\n            \"idAdmin\": \"654bc7d6e526d6620e92c4db\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"655fb5137d2552dbc0d119b3\",\n            \"namaProduk\": \"akskjd\",\n            \"hargaProduk\": 46465,\n            \"stokProduk\": 6460,\n            \"kategoriProduk\": \"Makanan\",\n            \"gambarProduk\": \"null11\",\n            \"idAdmin\": \"654bc7d6e526d6620e92c4db\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"655fb5137d2552dbc0d119b6\",\n            \"namaProduk\": \"akskjd\",\n            \"hargaProduk\": 46465,\n            \"stokProduk\": 6455,\n            \"kategoriProduk\": \"Makanan\",\n            \"gambarProduk\": \"null11\",\n            \"idAdmin\": \"654bc7d6e526d6620e92c4db\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"655fb5137d2552dbc0d119b9\",\n            \"namaProduk\": \"akskjd\",\n            \"hargaProduk\": 46465,\n            \"stokProduk\": 6458,\n            \"kategoriProduk\": \"Makanan\",\n            \"gambarProduk\": \"null11\",\n            \"idAdmin\": \"654bc7d6e526d6620e92c4db\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"65829beb96aab5ecaa89255b\",\n            \"namaProduk\": \"Produk Dummy3\",\n            \"hargaProduk\": 150000,\n            \"stokProduk\": 50,\n            \"kategoriProduk\": \"Makanan\",\n            \"gambarProduk\": \"http://contoh.com/gambar-produk.jpg\",\n            \"idAdmin\": \"654282c46f816855babac46b\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "getDetailProduk",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://192.168.178.135:3000/produk/654a47418fd67b5f2919af6a",
+						"description": "This endpoint makes an HTTP GET request to retrieve details of a specific product. The request should be sent to [http://192.168.178.135:3000/produk/655fb5127d2552dbc0d119ad](http://192.168.178.135:3000/produk/655fb5127d2552dbc0d119ad).\n\nThe response to the request will have a status code of 200, and the body will include an object with keys: error, message, and data. The data object contains details of the product including its ID, name, price, stock, category, image, admin ID, and version.\n\nPlease note that the response may contain masked or minified data for privacy reasons.\n\n``` json\n{\n    \"error\": false,\n    \"message\": \"success\",\n    \"data\": {\n        \"_id\": \"654284936f816855babac46d\",\n        \"namaProduk\": \"Ayam Goreng\",\n        \"hargaProduk\": 210000,\n        \"stokProduk\": 10,\n        \"kategoriProduk\": \"Makanan\",\n        \"__v\": 0\n    }\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "getDetailProduk",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://192.168.178.135:3000/produk/655fb5127d2552dbc0d119ad"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "233"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e9-kYLczeQDB6NmsqCFU4T4/pGbPeM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 07:50:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"message\": \"success\",\n    \"data\": {\n        \"_id\": \"655fb5127d2552dbc0d119ad\",\n        \"namaProduk\": \"akskjd\",\n        \"hargaProduk\": 46465,\n        \"stokProduk\": 6452,\n        \"kategoriProduk\": \"Makanan\",\n        \"gambarProduk\": \"null11\",\n        \"idAdmin\": \"654bc7d6e526d6620e92c4db\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "editProduk",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "namaProduk",
+									"value": "Produk Editeee",
+									"type": "text"
+								},
+								{
+									"key": "hargaProduk",
+									"value": "199",
+									"type": "text"
+								},
+								{
+									"key": "stokProduk",
+									"value": "80",
+									"type": "text"
+								},
+								{
+									"key": "kategoriProduk",
+									"value": "Minuman",
+									"type": "text"
+								},
+								{
+									"key": "gambarProduk",
+									"value": "http://contoh.com/gambar-produk.jpg",
+									"type": "text"
+								},
+								{
+									"key": "idAdmin",
+									"value": "654282c46f816855babac46b",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.178.135:3000/produk/654282c46f816855babac46b/update",
+						"description": "### Update Produk\n\nThis endpoint is used to update a specific product.\n\n#### Request Body\n\n- `namaProduk` (text): The name of the product.\n- `hargaProduk` (text): The price of the product.\n- `stokProduk` (text): The stock quantity of the product.\n- `kategoriProduk` (text): The category of the product.\n- `gambarProduk` (text): The image of the product.\n- `idAdmin` (text): The ID of the admin updating the product.\n    \n\n#### Response\n\n- `error` (boolean): Indicates if an error occurred.\n- `message` (string): A message regarding the update process.\n- `data` (object): The updated product data.\n    - `_id` (string): The ID of the updated product.\n    - `namaProduk` (string): The name of the updated product.\n    - `hargaProduk` (number): The price of the updated product.\n    - `stokProduk` (number): The stock quantity of the updated product.\n    - `kategoriProduk` (string): The category of the updated product.\n    - `gambarProduk` (string): The image of the updated product.\n    - `idAdmin` (string): The ID of the admin who updated the product.\n    - `__v` (number): Version of the product data.\n\n``` json\n{\n    \"error\": false,\n    \"message\": \"success\",\n    \"data\": {\n        \"_id\": \"654282c46f816855babac46b\",\n        \"namaProduk\": \"Produk Editeee\",\n        \"hargaProduk\": 199,\n        \"stokProduk\": 80,\n        \"kategoriProduk\": \"Minuman\",\n        \"__v\": 0,\n        \"gambarProduk\": \"http://contoh.com/gambar-produk.jpg\",\n        \"idAdmin\": \"654282c46f816855babac46b\"\n    }\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "editProduk",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "namaProduk",
+											"value": "Produk Editeee",
+											"type": "text"
+										},
+										{
+											"key": "hargaProduk",
+											"value": "199",
+											"type": "text"
+										},
+										{
+											"key": "stokProduk",
+											"value": "80",
+											"type": "text"
+										},
+										{
+											"key": "kategoriProduk",
+											"value": "Minuman",
+											"type": "text"
+										},
+										{
+											"key": "gambarProduk",
+											"value": "http://contoh.com/gambar-produk.jpg",
+											"type": "text"
+										},
+										{
+											"key": "idAdmin",
+											"value": "654282c46f816855babac46b",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://192.168.178.135:3000/updateProduk/655fb5127d2552dbc0d119ad"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "266"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"10a-UeXW3ZZHwoDJiJjGhY1Z6rXT8I8\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 07:51:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"message\": \"success\",\n    \"data\": {\n        \"_id\": \"655fb5127d2552dbc0d119ad\",\n        \"namaProduk\": \"Produk Editeee\",\n        \"hargaProduk\": 199,\n        \"stokProduk\": 80,\n        \"kategoriProduk\": \"Minuman\",\n        \"gambarProduk\": \"http://contoh.com/gambar-produk.jpg\",\n        \"idAdmin\": \"654282c46f816855babac46b\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "deleteProduk",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://192.168.178.135:3000/produk/{{:id}}/delete",
+						"description": "This endpoint sends an HTTP DELETE request to delete a specific product with the given ID. The request does not contain a request body.\n\nUpon successful execution, the endpoint returns a status code of 200 along with a JSON response. The response includes an \"error\" key indicating whether an error occurred, and a \"message\" key providing additional information about the operation.\n\n``` json\n{\n    \"error\": false,\n    \"message\": \"success\"\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "deleteProduk",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://192.168.178.135:3000/deleteProduk/655fb5137d2552dbc0d119b9"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "35"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"23-XvoqAknSrzp1/yN+iB0y0fXcQYo\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 08:07:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"message\": \"success\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Transaksi",
+			"item": [
+				{
+					"name": "addTransaksi",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idProduk[0][_id]",
+									"value": "655fb5137d2552dbc0d119b3",
+									"type": "text"
+								},
+								{
+									"key": "idProduk[0][jumlahProduk]",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idProduk[1][_id]",
+									"value": "655de9d13d70b4173c94c9cc",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "idProduk[1][jumlahProduk]",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "idAdmin",
+									"value": "876543210987654321098765",
+									"description": "Harus ada salah satu idKasir || idAdmin",
+									"type": "text"
+								},
+								{
+									"key": "idKasir",
+									"value": "987654321098765432109876",
+									"description": "Harus ada salah satu idKasir || idAdmin",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": "http://192.168.178.135:3000/addTransaksi",
+						"description": "### Add Transaksi\n\nThis endpoint allows you to add a new transaction.\n\n#### Request Body Parameters\n\n- `idProduk[0][_id]` (text):\n- `idProduk[0][jumlahProduk]` (text):\n- `idProduk[1][_id]` (text):\n- `idProduk[1][jumlahProduk]` (text):\n- `idAdmin` (text): Harus ada salah satu idKasir || idAdmin\n    \n\n#### Response\n\n- Status: 201\n- `error` (boolean): Indicates if an error occurred.\n- `message` (string): A message related to the response.\n    \n\n``` json\n{\n    \"error\": false,\n    \"message\": \"success\"\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "addTransaksi",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "idProduk[0][_id]",
+											"value": "655fb5137d2552dbc0d119b9",
+											"type": "text"
+										},
+										{
+											"key": "idProduk[0][jumlahProduk]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "idProduk[1][_id]",
+											"value": "65829beb96aab5ecaa89255b",
+											"type": "text"
+										},
+										{
+											"key": "idProduk[1][jumlahProduk]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "idAdmin",
+											"value": "876543210987654321098765",
+											"description": "Harus ada salah satu idKasir || idAdmin",
+											"type": "text"
+										},
+										{
+											"key": "idKasir",
+											"value": "987654321098765432109876",
+											"description": "Harus ada salah satu idKasir || idAdmin",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": "http://192.168.178.135:3000/addTransaksi"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "35"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"23-XvoqAknSrzp1/yN+iB0y0fXcQYo\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 07:54:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"message\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "getTransaksi",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://192.168.178.135:3000/transaksi",
+						"description": "This endpoint makes an HTTP GET request to retrieve transaction information from the specified URL. The request does not include a request body.\n\n### Response\n\nThe response to the request has a status code of 200 and includes an object with the following properties:\n\n- `error`: Indicates if an error occurred during the request.\n- `message`: Provides any additional information or error message.\n- `data`: Contains an array of objects, each representing a transaction with the following properties:\n    - `totalHarga`: The total price of the transaction.\n    - `tanggalTransaksi`: The date of the transaction.\n    - `waktu`: The time of the transaction.\n    - `idProduk`: An array of product IDs involved in the transaction.\n    - `idAdmin`: The ID of the admin associated with the transaction.\n\n``` json\n{\n    \"error\": false,\n    \"message\": \"success\",\n    \"data\": [\n        {\n            \"totalHarga\": 46465,\n            \"tanggalTransaksi\": \"02-12-2023\",\n            \"waktu\": \"21:37:20\",\n            \"idProduk\": [],\n            \"idAdmin\": \"876543210987654321098765\"\n        },\n        {\n            \"totalHarga\": 278790,\n            \"tanggalTransaksi\": \"03-12-2023\",\n            \"waktu\": \"15:01:22\",\n            \"idProduk\": [\n                {\n                    \"_id\": \"655fb5137d2552dbc0d119b6\",\n                    \"namaProduk\": \"akskjd\",\n                    \"hargaProduk\": 46465,\n                    \"gambarProduk\": \"null11\",\n                    \"kategoriProduk\": \"Makanan\",\n                    \"jumlahProduk\": 3,\n                    \"subTotalProduk\": 139395\n                }\n            ],\n            \"idAdmin\": \"876543210987654321098765\"\n        },\n        {\n            \"totalHarga\": 48,\n            \"tanggalTransaksi\": \"03-12-2023\",\n            \"waktu\": \"21:03:33\",\n            \"idProduk\": [\n                {\n                    \"_id\": \"655de9d13d70b4173c94c9cc\",\n                    \"namaProduk\": \"21\",\n                    \"hargaProduk\": 12,\n                    \"gambarProduk\": \"null11\",\n                    \"kategoriProduk\": \"Minuman\",\n                    \"jumlahProduk\": 4,\n                    \"subTotalProduk\": 48\n                }\n            ],\n            \"idAdmin\": \"876543210987654321098765\"\n        },\n        {\n            \"totalHarga\": 196465,\n            \"tanggalTransaksi\": \"20-12-2023\",\n            \"waktu\": \"14:54:16\",\n            \"idProduk\": [\n                {\n                    \"_id\": \"65829beb96aab5ecaa89255b\",\n                    \"namaProduk\": \"Produk Dummy3\",\n                    \"hargaProduk\": 150000,\n                    \"gambarProduk\": \"http://contoh.com/gambar-produk.jpg\",\n                    \"kategoriProduk\": \"Makanan\",\n                    \"jumlahProduk\": 1,\n                    \"subTotalProduk\": 150000\n                }\n            ],\n            \"idAdmin\": \"876543210987654321098765\"\n        }\n    ]\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "getTransaksi",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://192.168.178.135:3000/transaksi"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1065"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"429-2wZVP2bZ1GBbXyZzdlFXsvsPogQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 08:09:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"message\": \"success\",\n    \"data\": [\n        {\n            \"totalHarga\": 46465,\n            \"tanggalTransaksi\": \"02-12-2023\",\n            \"waktu\": \"21:37:20\",\n            \"idProduk\": [],\n            \"idAdmin\": \"876543210987654321098765\"\n        },\n        {\n            \"totalHarga\": 278790,\n            \"tanggalTransaksi\": \"03-12-2023\",\n            \"waktu\": \"15:01:22\",\n            \"idProduk\": [\n                {\n                    \"_id\": \"655fb5137d2552dbc0d119b6\",\n                    \"namaProduk\": \"akskjd\",\n                    \"hargaProduk\": 46465,\n                    \"gambarProduk\": \"null11\",\n                    \"kategoriProduk\": \"Makanan\",\n                    \"jumlahProduk\": 3,\n                    \"subTotalProduk\": 139395\n                }\n            ],\n            \"idAdmin\": \"876543210987654321098765\"\n        },\n        {\n            \"totalHarga\": 48,\n            \"tanggalTransaksi\": \"03-12-2023\",\n            \"waktu\": \"21:03:33\",\n            \"idProduk\": [\n                {\n                    \"_id\": \"655de9d13d70b4173c94c9cc\",\n                    \"namaProduk\": \"21\",\n                    \"hargaProduk\": 12,\n                    \"gambarProduk\": \"null11\",\n                    \"kategoriProduk\": \"Minuman\",\n                    \"jumlahProduk\": 4,\n                    \"subTotalProduk\": 48\n                }\n            ],\n            \"idAdmin\": \"876543210987654321098765\"\n        },\n        {\n            \"totalHarga\": 196465,\n            \"tanggalTransaksi\": \"20-12-2023\",\n            \"waktu\": \"14:54:16\",\n            \"idProduk\": [\n                {\n                    \"_id\": \"65829beb96aab5ecaa89255b\",\n                    \"namaProduk\": \"Produk Dummy3\",\n                    \"hargaProduk\": 150000,\n                    \"gambarProduk\": \"http://contoh.com/gambar-produk.jpg\",\n                    \"kategoriProduk\": \"Makanan\",\n                    \"jumlahProduk\": 1,\n                    \"subTotalProduk\": 150000\n                }\n            ],\n            \"idAdmin\": \"876543210987654321098765\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "30MinutesTransaksi",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://192.168.178.135:3000/transaksi/30SecondTransaksi"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTransaksi",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://192.168.178.135:3000/deleteTransaksi/65999ef9f5f2d5271e693f14",
+						"description": "This endpoint is used to delete a specific transaction identified by its ID.\n\n## Request\n\n- Method: DELETE\n- URL: `http://192.168.178.135:3000/deleteTransaksi/656b412018bab1c34b06c4f6`\n- Body: null\n    \n\n## Response\n\n- Status: 200\n- Body:\n    \n    ``` json\n        {\n            \"error\": true,\n            \"message\": \"\",\n            \"data\": {\n                \"_id\": \"\",\n                \"idProduk\": [],\n                \"idAdmin\": \"\",\n                \"tanggalTransaksi\": \"\",\n                \"totalHarga\": 0,\n                \"__v\": 0\n            }\n        }\n    \n     ```\n    \n\nThe API successfully deletes the transaction and returns a JSON object with the deleted transaction details."
+					},
+					"response": [
+						{
+							"name": "deleteTransaksi",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://192.168.178.135:3000/deleteTransaksi/656b412018bab1c34b06c4f6"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "201"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c9-wCYPbdkAvNfOfjFLRPccLXbqQ9k\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 08:10:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"message\": \"success\",\n    \"data\": {\n        \"_id\": \"656b412018bab1c34b06c4f6\",\n        \"idProduk\": [],\n        \"idAdmin\": \"876543210987654321098765\",\n        \"tanggalTransaksi\": \"2023-12-02T14:37:20.706Z\",\n        \"totalHarga\": 46465,\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Pendapatan",
+			"item": [
+				{
+					"name": "getAllPendapatan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://192.168.178.135:3000/pendapatan",
+						"description": "This endpoint retrieves the income data including income from food, income from drinks, admin ID, total income, and income date.\n\n## Response\n\n- Status: 200\n- Body:\n    \n    ``` json\n      {\n          \"error\": true,\n          \"message\": \"\",\n          \"data\": [\n              {\n                  \"_id\": \"\",\n                  \"pendapatanMakanan\": 0,\n                  \"pendapatanMinuman\": 0,\n                  \"idAdmin\": \"\",\n                  \"totalPendapatan\": 0,\n                  \"tanggalPendapatan\": \"\",\n                  \"__v\": 0\n              }\n          ]\n      }\n    \n     ```"
+					},
+					"response": [
+						{
+							"name": "getAllPendapatan",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://192.168.178.135:3000/pendapatan"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1897"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"769-okBGZfEDUe2bmDpmy0O+YtUuR4k\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 08:11:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"message\": \"success\",\n    \"data\": [\n        {\n            \"_id\": \"654de463f30fe241ace528dc\",\n            \"pendapatanMakanan\": 975319.7999999999,\n            \"pendapatanMinuman\": 120010,\n            \"idAdmin\": \"876543210987654321098765\",\n            \"totalPendapatan\": 1095329.7999999998,\n            \"tanggalPendapatan\": \"2023-11-10T00:00:00.000Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"654fc2a0c2bf1aed37fe2658\",\n            \"pendapatanMakanan\": 47.97,\n            \"pendapatanMinuman\": 0,\n            \"idAdmin\": \"876543210987654321098765\",\n            \"totalPendapatan\": 1000000,\n            \"tanggalPendapatan\": \"2023-11-11T00:00:00.000Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"655cc94c4b8ebdeb518d4bf8\",\n            \"pendapatanMakanan\": 30047.970000000005,\n            \"pendapatanMinuman\": 0,\n            \"idAdmin\": \"876543210987654321098765\",\n            \"totalPendapatan\": 1300000,\n            \"tanggalPendapatan\": \"2023-11-21T00:00:00.000Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"655d4fc34b8ebdeb518d4ca6\",\n            \"pendapatanMakanan\": 64,\n            \"pendapatanMinuman\": 44,\n            \"idAdmin\": \"876543210987654321098765\",\n            \"totalPendapatan\": 1500000,\n            \"tanggalPendapatan\": \"2023-11-22T00:00:00.000Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"655f07589e15160015868b4a\",\n            \"pendapatanMakanan\": 557850,\n            \"pendapatanMinuman\": 16,\n            \"idAdmin\": \"876543210987654321098765\",\n            \"totalPendapatan\": 1600000,\n            \"tanggalPendapatan\": \"2023-11-23T00:00:00.000Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"6565b67862e8e12c7f01cd0d\",\n            \"pendapatanMakanan\": 278790,\n            \"pendapatanMinuman\": 0,\n            \"idAdmin\": \"876543210987654321098765\",\n            \"totalPendapatan\": 1550000,\n            \"tanggalPendapatan\": \"2023-11-28T00:00:00.000Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"656b412018bab1c34b06c4fb\",\n            \"pendapatanMakanan\": 185860,\n            \"pendapatanMinuman\": 0,\n            \"idAdmin\": \"876543210987654321098765\",\n            \"totalPendapatan\": 1513535,\n            \"tanggalPendapatan\": \"2023-12-02T00:00:00.000Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"656c31e70579968bc263a435\",\n            \"pendapatanMakanan\": 604045,\n            \"pendapatanMinuman\": 48,\n            \"idAdmin\": \"876543210987654321098765\",\n            \"totalPendapatan\": 604093,\n            \"tanggalPendapatan\": \"2023-12-03T00:00:00.000Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"65829da896aab5ecaa892571\",\n            \"pendapatanMakanan\": 196465,\n            \"pendapatanMinuman\": 0,\n            \"idAdmin\": \"876543210987654321098765\",\n            \"totalPendapatan\": 196465,\n            \"tanggalPendapatan\": \"2023-12-20T00:00:00.000Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "deletePendapatan",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://192.168.178.135:3000/pendapatan/654de463f30fe241ace528dc/delete",
+						"description": "This endpoint sends an HTTP DELETE request to delete a specific \"pendapatan\" with the provided ID. The request should be made to [http://192.168.178.135:3000/deletePendapatan/654de463f30fe241ace528dc](http://192.168.178.135:3000/deletePendapatan/654de463f30fe241ace528dc).\n\nThe response to the last call had a status of 200 and included the following data:\n\n``` json\n{\n    \"error\": true,\n    \"message\": \"\",\n    \"data\": {\n        \"_id\": \"\",\n        \"pendapatanMakanan\": 0,\n        \"pendapatanMinuman\": 0,\n        \"idAdmin\": \"\",\n        \"totalPendapatan\": 0,\n        \"tanggalPendapatan\": \"\",\n        \"__v\": 0\n    }\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "deletePendapatan",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://192.168.178.135:3000/deletePendapatan/654de463f30fe241ace528dc"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "271"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"10f-nTv+I/zp288Y/HxjezEM9cMBU6M\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 08:13:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"message\": \"success\",\n    \"data\": {\n        \"_id\": \"654de463f30fe241ace528dc\",\n        \"pendapatanMakanan\": 975319.7999999999,\n        \"pendapatanMinuman\": 120010,\n        \"idAdmin\": \"876543210987654321098765\",\n        \"totalPendapatan\": 1095329.7999999998,\n        \"tanggalPendapatan\": \"2023-11-10T00:00:00.000Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "_id",
+			"value": "{{:id}}"
+		}
+	]
+}
